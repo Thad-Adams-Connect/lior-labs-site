@@ -25,7 +25,7 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden">
+    <section className="hero-shell min-dvh relative flex flex-col items-center justify-center overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
         <motion.div
@@ -39,15 +39,14 @@ function Hero() {
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-[0.03] select-none mix-blend-overlay">
           <h1
-            className="text-[20vw] font-bold tracking-tighter leading-none whitespace-nowrap"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            className="font-space text-[20vw] font-bold tracking-tighter leading-none whitespace-nowrap"
           >
             LIOR LABS
           </h1>
         </div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 text-center mt-20">
+      <div className="safe-x relative z-10 container mx-auto text-center mt-16 md:mt-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,10 +65,7 @@ function Hero() {
             </span>
           </motion.div>
 
-          <h1
-            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.1]"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
+          <h1 className="font-space text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.1]">
             High-performance <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-[#6134C1]">
               websites
@@ -140,17 +136,14 @@ function ServicesPreview() {
   ];
 
   return (
-    <section className="py-32 px-6 relative bg-[#0a0a0a] border-y border-white/5">
+    <section className="safe-x py-24 md:py-32 relative bg-[#0a0a0a] border-y border-white/5">
       <div className="container mx-auto max-w-7xl">
         <div className="flex flex-col md:flex-row gap-4 justify-between items-end mb-16">
           <div className="max-w-xl">
             <h2 className="text-sm font-bold text-[#6134C1] tracking-widest uppercase mb-3 flex items-center gap-4">
               <span className="w-8 h-px bg-[#6134C1]" /> Our Services
             </h2>
-            <h3
-              className="text-4xl md:text-5xl font-bold tracking-tight"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
+            <h3 className="font-space text-4xl md:text-5xl font-bold tracking-tight">
               Tailored Solutions
             </h3>
           </div>
@@ -176,10 +169,7 @@ function ServicesPreview() {
                 <div className="w-14 h-14 rounded-2xl bg-[#6134C1]/10 flex items-center justify-center mb-8 border border-[#6134C1]/20">
                   {service.icon}
                 </div>
-                <h4
-                  className="text-2xl font-bold mb-4 group-hover:text-white transition-colors"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                >
+                <h4 className="font-space text-2xl font-bold mb-4 group-hover:text-white transition-colors">
                   {service.title}
                 </h4>
                 <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
@@ -209,17 +199,14 @@ function CaseStudiesPreview() {
   ];
 
   return (
-    <section className="py-32 px-6 relative">
+    <section className="safe-x py-24 md:py-32 relative">
       <div className="container mx-auto max-w-7xl">
         <div className="flex flex-col md:flex-row gap-4 justify-between items-end mb-16">
           <div className="max-w-xl">
             <h2 className="text-sm font-bold text-[#6134C1] tracking-widest uppercase mb-3 flex items-center gap-4">
               <span className="w-8 h-px bg-[#6134C1]" /> Selected Work
             </h2>
-            <h3
-              className="text-4xl md:text-5xl font-bold tracking-tight"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
+            <h3 className="font-space text-4xl md:text-5xl font-bold tracking-tight">
               Featured Projects
             </h3>
           </div>
@@ -249,10 +236,7 @@ function CaseStudiesPreview() {
               </div>
               <div className="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                 <div className="h-1 w-12 bg-[#6134C1] rounded-full mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100" />
-                <h4
-                  className="text-3xl font-bold mb-2"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                >
+                <h4 className="font-space text-3xl font-bold mb-2">
                   {project.title}
                 </h4>
                 <p className="text-gray-400 text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
@@ -269,7 +253,7 @@ function CaseStudiesPreview() {
 
 function CTASection() {
   return (
-    <section className="py-32 px-6 relative overflow-hidden border-t border-white/5 bg-[#050505]">
+    <section className="safe-x safe-bottom py-24 md:py-32 relative overflow-hidden border-t border-white/5 bg-[#050505]">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[600px] h-[600px] bg-[#6134C1]/20 blur-[120px] rounded-full" />
       </div>
@@ -281,10 +265,7 @@ function CTASection() {
           transition={{ duration: 0.8 }}
           className="bg-white/5 backdrop-blur-xl border border-white/10 p-12 md:p-20 rounded-[3rem] shadow-2xl shadow-[#6134C1]/10"
         >
-          <h2
-            className="text-4xl md:text-6xl font-bold mb-6"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
+          <h2 className="font-space text-4xl md:text-6xl font-bold mb-6">
             Ready to start?
           </h2>
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">

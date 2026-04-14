@@ -49,7 +49,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="pt-32 pb-24 px-6 min-h-screen">
+    <div className="page-shell safe-x min-dvh">
       <div className="container mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -57,10 +57,7 @@ export default function ServicesPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-24 max-w-3xl mx-auto"
         >
-          <h1
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
+          <h1 className="font-space text-5xl md:text-7xl font-bold tracking-tight mb-6">
             Our <span className="text-[#6134C1]">Services</span>
           </h1>
           <p className="text-xl text-gray-400">
@@ -92,18 +89,12 @@ export default function ServicesPage() {
                 {plan.icon}
               </div>
 
-              <h3
-                className="text-3xl font-bold mb-2"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
+              <h3 className="font-space text-3xl font-bold mb-2">
                 {plan.name}
               </h3>
               <p className="text-gray-400 mb-8 h-12">{plan.desc}</p>
 
-              <div
-                className="text-4xl font-bold tracking-tight mb-8"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
+              <div className="font-space text-4xl font-bold tracking-tight mb-8">
                 {plan.price}
               </div>
 

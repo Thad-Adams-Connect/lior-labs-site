@@ -1,5 +1,6 @@
 "use client";
 
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { clsx, type ClassValue } from "clsx";
@@ -9,12 +10,12 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Internal Next.js route, renders a <Link> */
   to?: string;
   /** External or arbitrary href, renders a <Link> or <a> */
   href?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   variant?: "primary" | "secondary" | "outline";
   className?: string;
 }
@@ -44,8 +45,23 @@ export function Button({
   );
 
   const linkHref = to ?? href;
+  const isExternalHref =
+    typeof linkHref === "string" && /^(https?:|mailto:|tel:)/.test(linkHref);
 
   if (linkHref) {
+    if (isExternalHref) {
+      return (
+        <a
+          href={linkHref}
+          className={classes}
+          target={linkHref.startsWith("http") ? "_blank" : undefined}
+          rel={linkHref.startsWith("http") ? "noreferrer" : undefined}
+        >
+          {inner}
+        </a>
+      );
+    }
+
     return (
       <Link href={linkHref} className={classes}>
         {inner}
@@ -54,7 +70,11 @@ export function Button({
   }
 
   return (
-    <motion.button className={classes} {...(props as any)}>
+    <motion.button
+      type={(props as ButtonHTMLAttributes<HTMLButtonElement>).type ?? "button"}
+      className={classes}
+      {...(props as any)}
+    >
       {inner}
     </motion.button>
   );

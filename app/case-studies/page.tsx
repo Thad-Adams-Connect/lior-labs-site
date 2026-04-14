@@ -40,7 +40,7 @@ export default function CaseStudiesPage() {
   ];
 
   return (
-    <div className="pt-32 pb-24 px-6 min-h-screen">
+    <div className="page-shell safe-x min-dvh">
       <div className="container mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,10 +49,7 @@ export default function CaseStudiesPage() {
           className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16 border-b border-white/5 pb-12"
         >
           <div>
-            <h1
-              className="text-5xl md:text-7xl font-bold tracking-tight mb-4"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
+            <h1 className="font-space text-5xl md:text-7xl font-bold tracking-tight mb-4">
               Selected <span className="text-[#6134C1]">Work</span>
             </h1>
             <p className="text-xl text-gray-400 max-w-xl">
@@ -100,10 +97,7 @@ export default function CaseStudiesPage() {
                     {project.category}
                   </p>
                 </div>
-                <h3
-                  className="text-4xl font-bold group-hover:text-white text-gray-200 transition-colors duration-500"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                >
+                <h3 className="font-space text-4xl font-bold group-hover:text-white text-gray-200 transition-colors duration-500">
                   {project.title}
                 </h3>
               </div>

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 py-12 px-6 mt-20 relative overflow-hidden">
+    <footer className="safe-x safe-bottom border-t border-white/10 py-12 mt-20 relative overflow-hidden">
       {/* Gradient line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-px bg-gradient-to-r from-transparent via-[#6134C1] to-transparent opacity-50" />
 
@@ -24,7 +24,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12">
           <div className="flex flex-col gap-3">
             <h4 className="text-white font-medium mb-2">Company</h4>
             <Link
@@ -47,25 +47,25 @@ export function Footer() {
             </Link>
           </div>
           <div className="flex flex-col gap-3">
-            <h4 className="text-white font-medium mb-2">Social</h4>
+            <h4 className="text-white font-medium mb-2">Connect</h4>
             <a
-              href="#"
+              href="mailto:hello@liorlabs.com"
               className="text-gray-400 hover:text-white transition-colors text-sm"
             >
-              Twitter
+              hello@liorlabs.com
             </a>
             <a
-              href="#"
+              href="tel:+1234567890"
               className="text-gray-400 hover:text-white transition-colors text-sm"
             >
-              LinkedIn
+              +1 (234) 567-890
             </a>
-            <a
-              href="#"
+            <Link
+              href="/quote"
               className="text-gray-400 hover:text-white transition-colors text-sm"
             >
-              GitHub
-            </a>
+              Request a Quote
+            </Link>
           </div>
         </div>
       </div>
@@ -73,10 +73,16 @@ export function Footer() {
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
         <p>© 2026 Lior Labs. All rights reserved.</p>
         <div className="flex gap-4">
-          <Link href="#" className="hover:text-gray-300 transition-colors">
+          <Link
+            href="/privacy-policy"
+            className="hover:text-gray-300 transition-colors"
+          >
             Privacy Policy
           </Link>
-          <Link href="#" className="hover:text-gray-300 transition-colors">
+          <Link
+            href="/terms-of-service"
+            className="hover:text-gray-300 transition-colors"
+          >
             Terms of Service
           </Link>
         </div>

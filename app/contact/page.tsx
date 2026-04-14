@@ -1,12 +1,16 @@
 "use client";
 
+import { useId, useState } from "react";
 import { motion } from "motion/react";
 import { Button } from "@/components/Button";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 export default function ContactPage() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const formId = useId();
+
   return (
-    <div className="pt-32 pb-24 px-6 min-h-screen">
+    <div className="page-shell safe-x min-dvh">
       <div className="container mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -16,10 +20,7 @@ export default function ContactPage() {
         >
           {/* Left: contact info */}
           <div className="flex-1 md:pr-12 md:border-r border-white/5">
-            <h1
-              className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
+            <h1 className="font-space text-5xl md:text-7xl font-bold tracking-tight mb-6">
               Get in <span className="text-[#6134C1]">touch</span>
             </h1>
             <p className="text-xl text-gray-400 mb-16 max-w-lg leading-relaxed">
@@ -33,10 +34,7 @@ export default function ContactPage() {
                   <Mail className="w-6 h-6 text-[#6134C1]" />
                 </div>
                 <div>
-                  <h4
-                    className="text-lg font-bold mb-1 text-white"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
+                  <h4 className="font-space text-lg font-bold mb-1 text-white">
                     Email
                   </h4>
                   <a
@@ -53,10 +51,7 @@ export default function ContactPage() {
                   <Phone className="w-6 h-6 text-[#6134C1]" />
                 </div>
                 <div>
-                  <h4
-                    className="text-lg font-bold mb-1 text-white"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
+                  <h4 className="font-space text-lg font-bold mb-1 text-white">
                     Phone
                   </h4>
                   <a
@@ -73,10 +68,7 @@ export default function ContactPage() {
                   <MapPin className="w-6 h-6 text-[#6134C1]" />
                 </div>
                 <div>
-                  <h4
-                    className="text-lg font-bold mb-1 text-white"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
+                  <h4 className="font-space text-lg font-bold mb-1 text-white">
                     Office
                   </h4>
                   <p className="text-gray-400 text-lg">
@@ -97,35 +89,58 @@ export default function ContactPage() {
               className="bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] p-10 md:p-12 shadow-2xl relative z-10"
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("Message sent!");
+                setIsSubmitted(true);
+                e.currentTarget.reset();
               }}
             >
-              <h3
-                className="text-3xl font-bold mb-8"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
+              <h3 className="font-space text-3xl font-bold mb-8">
                 Send a message
               </h3>
 
               <div className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  required
-                  className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
-                />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  required
-                  className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
-                />
-                <textarea
-                  rows={4}
-                  placeholder="How can we help?"
-                  required
-                  className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all resize-none"
-                />
+                {isSubmitted ? (
+                  <p className="rounded-2xl border border-[#6134C1]/30 bg-[#6134C1]/10 px-4 py-3 text-sm text-purple-100">
+                    Thanks. Your message is ready for follow-up and we&apos;ll respond within 24 hours.
+                  </p>
+                ) : null}
+
+                <label className="block">
+                  <span className="sr-only">Your Name</span>
+                  <input
+                    id={`${formId}-name`}
+                    name="name"
+                    type="text"
+                    placeholder="Your Name"
+                    required
+                    autoComplete="name"
+                    className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
+                  />
+                </label>
+                <label className="block">
+                  <span className="sr-only">Email Address</span>
+                  <input
+                    id={`${formId}-email`}
+                    name="email"
+                    type="email"
+                    placeholder="Email Address"
+                    required
+                    autoComplete="email"
+                    inputMode="email"
+                    className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
+                  />
+                </label>
+                <label className="block">
+                  <span className="sr-only">How can we help?</span>
+                  <textarea
+                    id={`${formId}-message`}
+                    name="message"
+                    rows={4}
+                    placeholder="How can we help?"
+                    required
+                    autoComplete="off"
+                    className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all resize-none"
+                  />
+                </label>
                 <Button
                   type="submit"
                   variant="primary"
