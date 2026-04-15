@@ -56,18 +56,6 @@ function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-4xl mx-auto space-y-8"
         >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#6134C1] animate-pulse" />
-            <span className="text-sm font-medium tracking-wide text-gray-300">
-              Clean, modern, minimal
-            </span>
-          </motion.div>
-
           <h1 className="font-space text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.1]">
             High-performance <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-[#6134C1]">
