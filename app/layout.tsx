@@ -21,16 +21,16 @@ export const metadata: Metadata = {
   description:
     "We build high-performance websites and applications. Fast, reliable, and beautifully designed digital experiences that drive results.",
   applicationName: "Lior Labs",
-  manifest: "/manifest.webmanifest?v=20260416",
+  manifest: "/manifest.webmanifest?v=20260417",
   alternates: {
     canonical: "/",
   },
   icons: {
-    icon: [{ url: "/favicon.png?v=20260416", sizes: "32x32", type: "image/png" }],
-    shortcut: ["/favicon.png?v=20260416"],
+    icon: [{ url: "/favicon.png?v=20260417", sizes: "32x32", type: "image/png" }],
+    shortcut: ["/favicon.png?v=20260417"],
     apple: [
       {
-        url: "/apple-touch-icon.png?v=20260416",
+        url: "/apple-touch-icon.png?v=20260417",
         sizes: "180x180",
         type: "image/png",
       },
