@@ -147,7 +147,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-              className="safe-bottom fixed left-6 right-6 top-[calc(env(safe-area-inset-top)+5.5rem)] z-50 md:hidden rounded-[2rem] border border-white/10 bg-[#0a0a0a]/95 glass-panel backdrop-blur-xl p-6 shadow-2xl shadow-black/40"
+              className="fixed left-6 right-6 top-[calc(env(safe-area-inset-top)+5.5rem)] z-50 md:hidden rounded-[2rem] border border-white/10 bg-[#0a0a0a]/95 glass-panel backdrop-blur-xl p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl shadow-black/40"
             >
               <div className="flex flex-col gap-2">
                 {navLinks.map((link) => (
