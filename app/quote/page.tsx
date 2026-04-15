@@ -12,7 +12,7 @@ export default function QuotePage() {
   return (
     <div className="page-shell safe-x min-dvh flex items-center justify-center relative overflow-hidden">
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#6134C1]/10 blur-[150px] rounded-[100%] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[700px] md:h-[700px] bg-[#6134C1]/10 blur-[60px] md:blur-[130px] rounded-[100%] pointer-events-none" />
 
       <div className="container mx-auto max-w-3xl relative z-10">
         <motion.div

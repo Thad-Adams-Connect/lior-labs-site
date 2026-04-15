@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -14,7 +13,6 @@ const navLinks = [
 
 export function Navbar() {
   const { scrollY } = useScroll();
-  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -23,18 +21,21 @@ export function Navbar() {
   });
 
   useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
+    if (!isMenuOpen) return;
 
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    }
+    // iOS Safari ignores overflow:hidden on <body> for preventing touch scroll.
+    // position:fixed is the reliable cross-browser scroll lock.
+    const scrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      // Restore exact scroll position without a visible jump.
+      window.scrollTo(0, scrollY);
     };
   }, [isMenuOpen]);
 
@@ -154,6 +155,7 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     className="rounded-2xl px-4 py-3 text-base font-medium text-gray-200 transition-colors hover:bg-white/5 hover:text-white"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {link.label}
                   </Link>
@@ -163,6 +165,7 @@ export function Navbar() {
               <Link
                 href="/quote"
                 className="mt-6 flex items-center justify-center rounded-full bg-[#6134C1] px-6 py-3 text-white font-medium transition-colors hover:bg-[#7245d2]"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Get a Quote
               </Link>

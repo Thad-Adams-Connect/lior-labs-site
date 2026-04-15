@@ -12,6 +12,9 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Safari: overflow-x on body alone makes html the scroll container,
+     which breaks position:fixed elements like the navbar. Mirror it here. */
+  overflow-x: hidden;
 }
 
 body {

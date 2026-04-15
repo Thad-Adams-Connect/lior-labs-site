@@ -28,8 +28,11 @@ function Hero() {
     <section className="hero-shell min-dvh relative flex flex-col items-center justify-center overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
+        {/* Mobile: static smaller glow — large animated blurs crash iOS Safari's GPU */}
+        <div className="md:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-[#6134C1]/25 blur-[60px] rounded-full" />
+        {/* Desktop: animated glow */}
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#6134C1]/30 blur-[150px] rounded-[100%]"
+          className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#6134C1]/30 blur-[120px] rounded-[100%]"
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.5, 0.8, 0.5],
@@ -255,7 +258,7 @@ function CTASection() {
   return (
     <section className="safe-x safe-bottom py-24 md:py-32 relative overflow-hidden border-t border-white/5 bg-[#050505]">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[600px] h-[600px] bg-[#6134C1]/20 blur-[120px] rounded-full" />
+        <div className="w-[280px] h-[280px] md:w-[500px] md:h-[500px] bg-[#6134C1]/20 blur-[60px] md:blur-[100px] rounded-full" />
       </div>
       <div className="container mx-auto max-w-4xl text-center relative z-10">
         <motion.div

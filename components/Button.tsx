@@ -1,8 +1,8 @@
 "use client";
 
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, type HTMLMotionProps } from "motion/react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -10,7 +10,7 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
   /** Internal Next.js route, renders a <Link> */
   to?: string;
   /** External or arbitrary href, renders a <Link> or <a> */
@@ -71,9 +71,9 @@ export function Button({
 
   return (
     <motion.button
-      type={(props as ButtonHTMLAttributes<HTMLButtonElement>).type ?? "button"}
+      type={props.type ?? "button"}
       className={classes}
-      {...(props as any)}
+      {...props}
     >
       {inner}
     </motion.button>

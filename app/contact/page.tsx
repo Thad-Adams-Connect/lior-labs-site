@@ -83,7 +83,7 @@ export default function ContactPage() {
 
           {/* Right: contact form */}
           <div className="flex-1 max-w-lg mt-12 md:mt-0 relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-[#6134C1]/5 blur-[120px] rounded-[100%] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[280px] md:h-[600px] bg-[#6134C1]/5 blur-[60px] md:blur-[120px] rounded-[100%] pointer-events-none" />
 
             <form
               className="bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] p-10 md:p-12 shadow-2xl relative z-10"
