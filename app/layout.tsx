@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: [{ url: "/favicon.png?v=20260415", type: "image/png" }],
+    shortcut: ["/favicon.png?v=20260415"],
+    apple: [{ url: "/favicon.png?v=20260415" }],
+  },
   other: {
     "format-detection": "telephone=no",
   },
