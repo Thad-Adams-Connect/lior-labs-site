@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Lior Labs – High-Performance Websites & Applications",
+  title: "Lior Labs",
   description:
     "We build high-performance websites and applications. Fast, reliable, and beautifully designed digital experiences that drive results.",
   applicationName: "Lior Labs",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
   },
   other: {
     "format-detection": "telephone=no",
