@@ -47,18 +47,18 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`safe-x safe-top fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500 ${
           isScrolled || isMenuOpen
-            ? "py-4 bg-black/80 glass-surface backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/20"
-            : "py-5 md:py-6 bg-transparent border-b-transparent"
+            ? "h-20 bg-black/80 glass-surface backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/20"
+            : "h-20 md:h-24 bg-transparent border-b-transparent"
         }`}
       >
-        <Link href="/" className="group" aria-label="Lior Labs home">
+        <Link href="/" className="group flex h-full items-center" aria-label="Lior Labs home">
           <Image
             src="/lior-labs-1-line-logo.png"
             alt="Lior Labs"
             width={896}
             height={230}
             priority
-            className="h-10 w-auto group-hover:opacity-90 transition-opacity"
+            className="h-10 w-auto self-center group-hover:opacity-90 transition-opacity"
           />
         </Link>
 
