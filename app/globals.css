@@ -26,11 +26,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  /* Add safe area inset padding for notched/status bar on mobile PWA */
-  padding-top: max(env(safe-area-inset-top), 16px);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
 ::selection {
@@ -70,6 +65,10 @@ canvas {
 .safe-x {
   padding-left: max(1.5rem, env(safe-area-inset-left));
   padding-right: max(1.5rem, env(safe-area-inset-right));
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top);
 }
 
 .safe-bottom {

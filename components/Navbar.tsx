@@ -45,7 +45,7 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`safe-x fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500 ${
+        className={`safe-x safe-top fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500 ${
           isScrolled || isMenuOpen
             ? "py-4 bg-black/80 glass-surface backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/20"
             : "py-5 md:py-6 bg-transparent border-b-transparent"
