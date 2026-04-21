@@ -10,6 +10,8 @@ import { initialQuoteFormState, type QuoteFormState } from "./types";
 import { buildQuotePayload } from "./quote-payload";
 import { validateStep } from "./validation";
 
+type FormDataType = ReturnType<typeof buildQuotePayload>;
+
 const TOTAL_STEPS = 6;
 
 const stepMotion = {
@@ -35,7 +37,36 @@ export function QuoteForm() {
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1);
   const [error, setError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const submitFormData = useCallback(
+    async (formData: FormDataType) => {
+      try {
+        setIsSubmitting(true);
+
+        console.log("[quote] payload", JSON.stringify(formData, null, 2));
+
+        const res = await fetch("/api/quote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!res.ok) throw new Error("Submission failed");
+
+        setIsSuccess(true);
+      } catch (err) {
+        console.error(err);
+        setError("Something went wrong submitting your request. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [],
+  );
 
   const goNext = useCallback(() => {
     const msg = validateStep(step, form);
@@ -61,6 +92,7 @@ export function QuoteForm() {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
+      if (isSubmitting || isSuccess) return;
       const msg = validateStep(6, form);
       if (msg) {
         setError(msg);
@@ -69,13 +101,12 @@ export function QuoteForm() {
       setError(null);
       try {
         const payload = buildQuotePayload(form);
-        console.log("[quote] submission", JSON.stringify(payload, null, 2));
-        setSubmitted(true);
+        void submitFormData(payload);
       } catch {
         setError("Something went wrong preparing your request. Please try again.");
       }
     },
-    [form],
+    [form, isSubmitting, isSuccess, submitFormData],
   );
 
   const startOver = useCallback(() => {
@@ -83,10 +114,11 @@ export function QuoteForm() {
     setStep(1);
     setDirection(1);
     setError(null);
-    setSubmitted(false);
+    setIsSubmitting(false);
+    setIsSuccess(false);
   }, []);
 
-  if (submitted) {
+  if (isSuccess) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -168,8 +200,13 @@ export function QuoteForm() {
             <ArrowRight className="h-4 w-4" />
           </Button>
         ) : (
-          <Button type="submit" variant="primary" className="px-8 py-4 rounded-full text-[15px]">
-            Review &amp; Generate Proposal
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={isSubmitting || isSuccess}
+            className="px-8 py-4 rounded-full text-[15px]"
+          >
+            {isSuccess ? "Request Received" : isSubmitting ? "Submitting…" : "Review & Generate Proposal"}
             <Sparkles className="h-4 w-4" />
           </Button>
         )}
