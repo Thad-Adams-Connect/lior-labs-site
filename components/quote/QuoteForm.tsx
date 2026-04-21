@@ -43,6 +43,7 @@ export function QuoteForm() {
   const submitFormData = useCallback(
     async (formData: FormDataType) => {
       try {
+        setError(null);
         setIsSubmitting(true);
 
         console.log("[quote] payload", JSON.stringify(formData, null, 2));
@@ -55,12 +56,29 @@ export function QuoteForm() {
           body: JSON.stringify(formData),
         });
 
-        if (!res.ok) throw new Error("Submission failed");
+        if (!res.ok) {
+          let msg = "Submission failed";
+          try {
+            const json = (await res.json()) as unknown;
+            if (json && typeof json === "object" && "error" in json) {
+              const err = (json as { error?: unknown }).error;
+              if (typeof err === "string" && err.trim()) msg = err;
+            }
+          } catch {
+            try {
+              const text = await res.text();
+              if (text.trim()) msg = text;
+            } catch {
+              // ignore
+            }
+          }
+          throw new Error(msg);
+        }
 
         setIsSuccess(true);
       } catch (err) {
         console.error(err);
-        setError("Something went wrong submitting your request. Please try again.");
+        setError(err instanceof Error ? err.message : "Something went wrong submitting your request. Please try again.");
       } finally {
         setIsSubmitting(false);
       }
