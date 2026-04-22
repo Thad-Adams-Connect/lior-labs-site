@@ -3,6 +3,12 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+function readWebhookUrl() {
+  const raw = process.env.WEBHOOK_URL ?? process.env["\uFEFFWEBHOOK_URL"];
+  if (!raw) return null;
+  return raw.trim().replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1");
+}
+
 export async function POST(req: Request) {
   try {
     let data: unknown;
@@ -31,7 +37,7 @@ export async function POST(req: Request) {
 
     const payload = data as Record<string, unknown>;
 
-    const webhookUrl = process.env.WEBHOOK_URL;
+    const webhookUrl = readWebhookUrl();
     if (!webhookUrl) {
       console.error("Missing WEBHOOK_URL env var");
       return NextResponse.json(
