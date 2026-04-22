@@ -46,7 +46,7 @@ export function QuoteForm() {
         setError(null);
         setIsSubmitting(true);
 
-        console.log("[quote] payload", JSON.stringify(formData, null, 2));
+        console.log("[quote] payload", formData);
 
         const res = await fetch("/api/quote", {
           method: "POST",
@@ -58,20 +58,21 @@ export function QuoteForm() {
 
         if (!res.ok) {
           let msg = "Submission failed";
-          try {
-            const json = (await res.json()) as unknown;
-            if (json && typeof json === "object" && "error" in json) {
-              const err = (json as { error?: unknown }).error;
-              if (typeof err === "string" && err.trim()) msg = err;
-            }
-          } catch {
+
+          const text = await res.text();
+          if (text.trim()) {
+            msg = text;
             try {
-              const text = await res.text();
-              if (text.trim()) msg = text;
+              const json = JSON.parse(text) as unknown;
+              if (json && typeof json === "object" && "error" in json) {
+                const err = (json as { error?: unknown }).error;
+                if (typeof err === "string" && err.trim()) msg = err;
+              }
             } catch {
               // ignore
             }
           }
+
           throw new Error(msg);
         }
 
