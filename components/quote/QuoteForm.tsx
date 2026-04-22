@@ -10,8 +10,6 @@ import { initialQuoteFormState, type QuoteFormState } from "./types";
 import { buildQuotePayload } from "./quote-payload";
 import { validateStep } from "./validation";
 
-type FormDataType = ReturnType<typeof buildQuotePayload>;
-
 const TOTAL_STEPS = 6;
 
 const stepMotion = {
@@ -38,54 +36,7 @@ export function QuoteForm() {
   const [direction, setDirection] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const submitFormData = useCallback(
-    async (formData: FormDataType) => {
-      try {
-        setError(null);
-        setIsSubmitting(true);
-
-        console.log("[quote] payload", formData);
-
-        const res = await fetch("/api/quote", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (!res.ok) {
-          let msg = "Submission failed";
-
-          const text = await res.text();
-          if (text.trim()) {
-            msg = text;
-            try {
-              const json = JSON.parse(text) as unknown;
-              if (json && typeof json === "object" && "error" in json) {
-                const err = (json as { error?: unknown }).error;
-                if (typeof err === "string" && err.trim()) msg = err;
-              }
-            } catch {
-              // ignore
-            }
-          }
-
-          throw new Error(msg);
-        }
-
-        setIsSuccess(true);
-      } catch (err) {
-        console.error(err);
-        setError(err instanceof Error ? err.message : "Something went wrong submitting your request. Please try again.");
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [],
-  );
+  const [submitted, setSubmitted] = useState(false);
 
   const goNext = useCallback(() => {
     const msg = validateStep(step, form);
@@ -109,23 +60,53 @@ export function QuoteForm() {
   }, [step]);
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
+    async (e: React.FormEvent) => {
       e.preventDefault();
-      if (isSubmitting || isSuccess) return;
       const msg = validateStep(6, form);
       if (msg) {
         setError(msg);
         return;
       }
+
       setError(null);
       try {
         const payload = buildQuotePayload(form);
-        void submitFormData(payload);
-      } catch {
-        setError("Something went wrong preparing your request. Please try again.");
+        setIsSubmitting(true);
+
+        const res = await fetch("/api/quote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          let message = "Submission failed";
+          try {
+            const data = (await res.json()) as { error?: unknown };
+            if (typeof data.error === "string" && data.error.trim()) {
+              message = data.error;
+            }
+          } catch {
+            // Keep fallback message when response body is not JSON.
+          }
+
+          throw new Error(message);
+        }
+
+        setSubmitted(true);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Something went wrong preparing your request. Please try again.",
+        );
+      } finally {
+        setIsSubmitting(false);
       }
     },
-    [form, isSubmitting, isSuccess, submitFormData],
+    [form],
   );
 
   const startOver = useCallback(() => {
@@ -133,11 +114,11 @@ export function QuoteForm() {
     setStep(1);
     setDirection(1);
     setError(null);
+    setSubmitted(false);
     setIsSubmitting(false);
-    setIsSuccess(false);
   }, []);
 
-  if (isSuccess) {
+  if (submitted) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -222,10 +203,10 @@ export function QuoteForm() {
           <Button
             type="submit"
             variant="primary"
-            disabled={isSubmitting || isSuccess}
             className="px-8 py-4 rounded-full text-[15px]"
+            disabled={isSubmitting}
           >
-            {isSuccess ? "Request Received" : isSubmitting ? "Submitting…" : "Review & Generate Proposal"}
+            {isSubmitting ? "Submitting..." : "Review & Generate Proposal"}
             <Sparkles className="h-4 w-4" />
           </Button>
         )}
