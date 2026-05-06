@@ -47,8 +47,8 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`safe-x safe-top fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-500 ${
           isScrolled || isMenuOpen
-            ? "min-h-20 bg-black/80 glass-surface backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/20"
-            : "min-h-20 md:min-h-24 bg-transparent border-b-transparent"
+            ? "nav-h bg-black/80 glass-surface backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/20"
+            : "nav-h md:nav-h-lg bg-transparent border-b-transparent"
         }`}
       >
         <Link href="/" className="group flex h-full items-center" aria-label="Lior Labs home">
