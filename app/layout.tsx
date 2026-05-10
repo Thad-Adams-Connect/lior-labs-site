@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import GlobalAetherBackground from "@/components/ui/global-aether-background";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -61,11 +62,14 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} font-inter min-dvh bg-[#050505] text-white flex flex-col`}
+        className={`${inter.variable} ${spaceGrotesk.variable} font-inter min-dvh bg-transparent text-white flex flex-col antialiased relative isolate`}
       >
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <GlobalAetherBackground />
+        <div className="relative z-10 flex min-dvh flex-col">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

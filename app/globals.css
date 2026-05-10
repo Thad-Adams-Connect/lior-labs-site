@@ -17,6 +17,14 @@ html {
   overflow-x: hidden;
 }
 
+html,
+body,
+#__next {
+  width: 100%;
+  min-height: 100%;
+  background: black;
+}
+
 body {
   min-height: 100vh;
   min-height: 100dvh;
@@ -58,6 +66,7 @@ canvas {
 }
 
 .min-dvh {
+  min-height: 100svh;
   min-height: 100vh;
   min-height: 100dvh;
 }
@@ -86,11 +95,15 @@ canvas {
 }
 
 .page-shell {
+  min-height: 100svh;
+  min-height: 100dvh;
   padding-top: calc(7rem + env(safe-area-inset-top));
   padding-bottom: calc(6rem + env(safe-area-inset-bottom));
 }
 
 .hero-shell {
+  min-height: 100svh;
+  min-height: 100dvh;
   padding-top: calc(6rem + env(safe-area-inset-top));
   padding-bottom: calc(3rem + env(safe-area-inset-bottom));
 }

@@ -5,8 +5,6 @@ import { Button } from "@/components/Button";
 import { ArrowRight, Code2, Layers, Smartphone } from "lucide-react";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 
-const abstractGlow =
-  "https://images.unsplash.com/photo-1685871286419-58e4fc0de8e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRhcmslMjBnbG93aW5nJTIwc2hhcGVzfGVufDF8fHx8MTc3NTc1OTA0OXww&ixlib=rb-4.1.0&q=80&w=1080";
 const dashApp =
   "https://images.unsplash.com/photo-1720135885007-454165745e21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXJrJTIwbW9kZXJuJTIwZGFzaGJvYXJkJTIwYXBwfGVufDF8fHx8MTc3NTc1OTA0OXww&ixlib=rb-4.1.0&q=80&w=1080";
 const codeEditor =
@@ -26,30 +24,7 @@ export default function Home() {
 function Hero() {
   return (
     <section className="hero-shell min-dvh relative flex flex-col items-center justify-center overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-0">
-        {/* Mobile: static smaller glow — large animated blurs crash iOS Safari's GPU */}
-        <div className="md:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-[#6134C1]/25 blur-[60px] rounded-full" />
-        {/* Desktop: animated glow */}
-        <motion.div
-          className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#6134C1]/30 blur-[120px] rounded-[100%]"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0.8, 0.5],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-[0.03] select-none mix-blend-overlay">
-          <h1
-            className="font-space text-[20vw] font-bold tracking-tighter leading-none whitespace-nowrap"
-          >
-            LIOR LABS
-          </h1>
-        </div>
-      </div>
-
-      <div className="safe-x relative z-10 container mx-auto text-center mt-16 md:mt-20">
+      <div className="safe-x relative z-10 container mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -88,18 +63,6 @@ function Hero() {
         </motion.div>
       </div>
 
-      {/* Decorative floating element */}
-      <motion.div
-        className="absolute bottom-20 right-[15%] w-64 h-64 border border-white/5 rounded-2xl bg-gradient-to-br from-white/5 to-transparent backdrop-blur-md hidden lg:block"
-        animate={{ y: [0, -20, 0], rotateZ: [0, 5, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <ImageWithFallback
-          src={abstractGlow}
-          alt="Abstract"
-          className="w-full h-full object-cover rounded-2xl opacity-50 mix-blend-screen"
-        />
-      </motion.div>
     </section>
   );
 }
@@ -127,7 +90,7 @@ function ServicesPreview() {
   ];
 
   return (
-    <section className="safe-x py-24 md:py-32 relative bg-[#0a0a0a] border-y border-white/5">
+    <section className="safe-x py-24 md:py-32 relative border-y border-white/5">
       <div className="container mx-auto max-w-7xl">
         <div className="flex flex-col md:flex-row gap-4 justify-between items-end mb-16">
           <div className="max-w-xl">
@@ -244,10 +207,7 @@ function CaseStudiesPreview() {
 
 function CTASection() {
   return (
-    <section className="safe-x safe-bottom py-24 md:py-32 relative overflow-hidden border-t border-white/5 bg-[#050505]">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[280px] h-[280px] md:w-[500px] md:h-[500px] bg-[#6134C1]/20 blur-[60px] md:blur-[100px] rounded-full" />
-      </div>
+    <section className="safe-x safe-bottom py-24 md:py-32 relative overflow-hidden border-t border-white/5">
       <div className="container mx-auto max-w-4xl text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
