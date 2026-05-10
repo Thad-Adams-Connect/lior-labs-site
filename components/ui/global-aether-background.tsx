@@ -40,8 +40,9 @@ export default function GlobalAetherBackground() {
 
       if (window.innerWidth < 640) return 54;
       if (window.innerWidth < 1024) return 84;
+      if (window.innerWidth < 1440) return Math.min(280, Math.floor(area / 10000));
 
-      return Math.min(150, Math.floor(area / 16500));
+      return Math.min(520, Math.floor(area / 8500));
     };
 
     const createParticles = () => {
@@ -73,7 +74,7 @@ export default function GlobalAetherBackground() {
     };
 
     const drawConnections = () => {
-      const maxDistance = 165;
+      const maxDistance = 180;
       const maxDistanceSq = maxDistance * maxDistance;
 
       for (let a = 0; a < particles.length; a++) {
