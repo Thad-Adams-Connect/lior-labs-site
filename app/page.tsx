@@ -68,21 +68,18 @@ function Hero() {
 function ServicesPreview() {
   const services = [
     {
-      title: "Starter",
-      description:
-        "Basic websites with fast delivery. Perfect for new ventures.",
+      title: "Essential Tier",
+      description: "Basic Website + Contact Form.",
       icon: <Layers className="w-6 h-6 text-[#6134C1]" />,
     },
     {
-      title: "Pro",
-      description:
-        "Custom UI/UX and integrations. Tailored for growing businesses.",
+      title: "Prime Tier",
+      description: "Standard Website + CMS + Custom Design.",
       icon: <Code2 className="w-6 h-6 text-[#6134C1]" />,
     },
     {
-      title: "Web App",
-      description:
-        "Full-stack apps, APIs, dashboards. Complex solutions made simple.",
+      title: "Ultimate Tier",
+      description: "Custom web + mobile product tailored to your goals.",
       icon: <Smartphone className="w-6 h-6 text-[#6134C1]" />,
     },
   ];

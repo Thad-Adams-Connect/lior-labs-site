@@ -55,10 +55,10 @@ export default function ContactPage() {
                     Phone
                   </h4>
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+14177188661"
                     className="text-gray-400 hover:text-white transition-colors text-lg"
                   >
-                    +1 (234) 567-890
+                    +1 (417) 718-8661
                   </a>
                 </div>
               </div>
@@ -69,12 +69,10 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="font-space text-lg font-bold mb-1 text-white">
-                    Office
+                    Address
                   </h4>
                   <p className="text-gray-400 text-lg">
-                    123 Innovation Drive
-                    <br />
-                    San Francisco, CA 94103
+                    301 East Keller Drive
                   </p>
                 </div>
               </div>
@@ -113,7 +111,7 @@ export default function ContactPage() {
                     placeholder="Your Name"
                     required
                     autoComplete="name"
-                    className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
+                    className="w-full bg-[#111111] border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
                   />
                 </label>
                 <label className="block">
@@ -126,7 +124,7 @@ export default function ContactPage() {
                     required
                     autoComplete="email"
                     inputMode="email"
-                    className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
+                    className="w-full bg-[#111111] border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all"
                   />
                 </label>
                 <label className="block">
@@ -138,7 +136,7 @@ export default function ContactPage() {
                     placeholder="How can we help?"
                     required
                     autoComplete="off"
-                    className="w-full bg-[#111111] border-b border-white/10 px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all resize-none"
+                    className="w-full bg-[#111111] border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#6134C1] transition-all resize-none"
                   />
                 </label>
                 <Button

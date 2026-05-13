@@ -55,10 +55,10 @@ export function Footer() {
               hello@liorlabs.com
             </a>
             <a
-              href="tel:+1234567890"
+              href="tel:+14177188661"
               className="text-gray-400 hover:text-white transition-colors text-sm"
             >
-              +1 (234) 567-890
+              +1 (417) 718-8661
             </a>
             <Link
               href="/quote"
