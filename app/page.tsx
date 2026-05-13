@@ -31,16 +31,14 @@ function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-4xl mx-auto space-y-8"
         >
-          <h1 className="font-space text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.1]">
-            High-performance <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-[#6134C1]">
-              websites
-            </span>{" "}
-            and applications.
+          <h1 className="font-space text-[clamp(5rem,22vw,15rem)] font-bold tracking-tight leading-none">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-[#6134C1] drop-shadow-[0_0_26px_rgba(97,52,193,0.45)]">
+              LUMORA
+            </span>
           </h1>
 
           <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            We build digital experiences that drive results. Fast, reliable, and
+            Building digital experiences that drive results. Fast, reliable, and
             beautifully designed.
           </p>
 
