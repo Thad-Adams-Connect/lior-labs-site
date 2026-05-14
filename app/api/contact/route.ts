@@ -30,11 +30,14 @@ export async function POST(req: Request) {
   const payload = data as QuotePayload;
 
   // ── Validate required contact fields ────────────────────────────────────
-  const { name, email } = payload.contact ?? {};
+  const { name, email, businessName } = payload.contact ?? {};
 
-  if (!name?.trim() || !email?.trim()) {
+  if (!name?.trim() || !email?.trim() || !businessName?.trim()) {
     return NextResponse.json(
-      { success: false, error: "Missing required contact fields: name and email." },
+      {
+        success: false,
+        error: "Missing required contact fields: name, email, and businessName.",
+      },
       { status: 422 },
     );
   }
@@ -56,11 +59,12 @@ export async function POST(req: Request) {
   try {
     await sendInquiryEmail({ payload, submissionId });
   } catch (err) {
-    console.error("[quote] sendInquiryEmail failed:", err);
+    console.error("[contact] sendInquiryEmail failed:", err);
     return NextResponse.json(
       {
         success: false,
-        error: err instanceof Error ? err.message : "Failed to send email. Please try again.",
+        error:
+          err instanceof Error ? err.message : "Failed to send email. Please try again.",
       },
       { status: 500 },
     );
