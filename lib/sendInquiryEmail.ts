@@ -209,6 +209,13 @@ export async function sendInquiryEmail({
 
   const transporter = getTransport();
 
+  const senderEmail = process.env.SENDER_EMAIL;
+  if (!senderEmail) {
+    throw new Error(
+      "Missing SENDER_EMAIL environment variable. Set it in .env.local.",
+    );
+  }
+
   const jsonAttachment = JSON.stringify(
     { submissionId, ...payload },
     null,
@@ -216,7 +223,7 @@ export async function sendInquiryEmail({
   );
 
   await transporter.sendMail({
-    from: `"Lior Labs" <${process.env.SMTP_USER}>`,
+    from: `"Lior Labs" <${senderEmail}>`,
     to: contactEmail,
     subject: `New Lior Labs Project Inquiry — ${payload.contact.name}`,
     html: buildEmailHtml(payload, submissionId),
