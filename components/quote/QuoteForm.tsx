@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/Button";
@@ -37,6 +37,33 @@ export function QuoteForm() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const formTopRef = useRef<HTMLFormElement | null>(null);
+  const hasMountedRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
+
+    if (step === 1 || direction < 0) {
+      return;
+    }
+
+    const topNode = formTopRef.current;
+    if (!topNode) return;
+
+    // Keep the progress header visible after step transitions under fixed nav.
+    const navEl = document.querySelector("nav");
+    const navHeight = navEl instanceof HTMLElement ? navEl.getBoundingClientRect().height : 0;
+    const navOffset = navHeight + 16;
+    const y = topNode.getBoundingClientRect().top + window.scrollY - navOffset;
+
+    window.scrollTo({
+      top: Math.max(0, y),
+      behavior: "smooth",
+    });
+  }, [step, direction]);
 
   const goNext = useCallback(() => {
     const msg = validateStep(step, form);
@@ -146,7 +173,11 @@ export function QuoteForm() {
   }
 
   return (
-    <form onSubmit={step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()} className="space-y-10">
+    <form
+      ref={formTopRef}
+      onSubmit={step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()}
+      className="space-y-10"
+    >
       <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
 
       <div className="relative min-h-[320px] md:min-h-[380px]">
