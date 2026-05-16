@@ -87,8 +87,7 @@ export function QuoteForm() {
   }, [step]);
 
   const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
+    async () => {
       if (step !== TOTAL_STEPS) return; // Ensure submission only happens on the last step
 
       const msg = validateStep(6, form);
@@ -175,11 +174,7 @@ export function QuoteForm() {
   }
 
   return (
-    <form
-      ref={formTopRef}
-      onSubmit={step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()}
-      className="space-y-10"
-    >
+    <form ref={formTopRef} onSubmit={(e) => e.preventDefault()} className="space-y-10">
       <ProgressBar
         currentStep={step}
         totalSteps={TOTAL_STEPS}
@@ -241,7 +236,8 @@ export function QuoteForm() {
           </Button>
         ) : (
           <Button
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             variant="primary"
             className="px-8 py-4 rounded-full text-[15px]"
             disabled={isSubmitting}
