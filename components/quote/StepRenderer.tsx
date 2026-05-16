@@ -50,6 +50,17 @@ const inputClass =
 const labelClass = "block text-sm font-medium text-gray-400 mb-3";
 
 export function StepRenderer({ step, form, setForm }: StepRendererProps) {
+  const getOptionLabel = (options: Array<{ id: string; label: string }>, id: string | null | undefined) => {
+    if (!id) return "Not provided";
+    return options.find((opt) => opt.id === id)?.label ?? id;
+  };
+
+  const formatProjectType = (projectType: ProjectType | null) => {
+    if (!projectType) return "Not provided";
+    const label = PROJECT_TYPE_OPTIONS.find((opt) => opt.id === projectType)?.label;
+    return label ?? projectType;
+  };
+
   const setProjectType = (projectType: ProjectType) => {
     setForm((prev) => ({
       ...prev,
@@ -697,44 +708,78 @@ export function StepRenderer({ step, form, setForm }: StepRendererProps) {
   }
 
   if (step === 7) {
+    const contextualFocusLabel =
+      form.projectType === "website"
+        ? getOptionLabel(WEBSITE_PRIMARY_PURPOSE_OPTIONS, form.websitePrimaryPurpose)
+        : form.projectType === "ecommerce"
+          ? getOptionLabel(ECOMMERCE_SITUATION_OPTIONS, form.ecommerceSituation)
+          : form.projectType === "web_app"
+            ? getOptionLabel(WEB_APP_AUDIENCE_OPTIONS, form.webAppAudience)
+            : form.projectType === "mobile_app"
+              ? getOptionLabel(MOBILE_PLATFORM_OPTIONS, form.mobileTargetPlatforms)
+              : "Not provided";
+
+    const selectedFeatureLabels = form.projectType
+      ? form.featureSelections
+          .map((id) => featuresForProjectType(form.projectType as ProjectType).find((f) => f.id === id)?.label ?? id)
+          .join(", ")
+      : "";
+
+    const priorityLabels = form.priorities
+      .map((id) => {
+        if (!form.projectType) return id;
+        return prioritiesForProjectType(form.projectType).find((p) => p.id === id)?.label ?? id;
+      })
+      .join(", ");
+
     return (
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold text-white">Review Your Answers</h2>
-        <div className="space-y-4">
-          <div>
-            <h3 className="font-medium text-gray-400">Project Type</h3>
-            <p className="text-white">{form.projectType || "Not provided"}</p>
+      <QuestionCard
+        title="Review"
+        description="Confirm everything below before submitting your request."
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Project type</p>
+            <p className="text-sm text-white font-medium">{formatProjectType(form.projectType)}</p>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-400">Business Description</h3>
-            <p className="text-white">{form.businessDescription || "Not provided"}</p>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Main goal</p>
+            <p className="text-sm text-white font-medium">{form.mainGoal || "Not provided"}</p>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-400">Main Goal</h3>
-            <p className="text-white">{form.mainGoal || "Not provided"}</p>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1 sm:col-span-2">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Business description</p>
+            <p className="text-sm text-white/95 leading-relaxed">{form.businessDescription || "Not provided"}</p>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-400">Priorities</h3>
-            <p className="text-white">{form.priorities.length > 0 ? form.priorities.join(", ") : "Not provided"}</p>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1 sm:col-span-2">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Top priorities</p>
+            <p className="text-sm text-white/95">{priorityLabels || "Not provided"}</p>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-400">Contact Name</h3>
-            <p className="text-white">{form.contactName || "Not provided"}</p>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Context focus</p>
+            <p className="text-sm text-white/95">{contextualFocusLabel}</p>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-400">Contact Email</h3>
-            <p className="text-white">{form.contactEmail || "Not provided"}</p>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Selected features</p>
+            <p className="text-sm text-white/95">{selectedFeatureLabels || "Not provided"}</p>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-400">Business Name</h3>
-            <p className="text-white">{form.businessName || "Not provided"}</p>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Contact name</p>
+            <p className="text-sm text-white font-medium">{form.contactName || "Not provided"}</p>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-400">Notes</h3>
-            <p className="text-white">{form.notes || "Not provided"}</p>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Contact email</p>
+            <p className="text-sm text-white font-medium">{form.contactEmail || "Not provided"}</p>
+          </div>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Business name</p>
+            <p className="text-sm text-white font-medium">{form.businessName || "Not provided"}</p>
+          </div>
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 space-y-1 sm:col-span-2">
+            <p className="text-xs uppercase tracking-[0.16em] text-gray-500">Additional notes</p>
+            <p className="text-sm text-white/95 leading-relaxed">{form.notes || "Not provided"}</p>
           </div>
         </div>
-      </div>
+      </QuestionCard>
     );
   }
 
