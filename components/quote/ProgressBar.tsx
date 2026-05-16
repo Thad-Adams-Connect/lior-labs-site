@@ -8,9 +8,10 @@ type ProgressBarProps = {
   currentStep: number;
   totalSteps?: number;
   className?: string;
+  onStepClick: (step: number) => void; // New prop for handling step click
 };
 
-export function ProgressBar({ currentStep, totalSteps = 6, className }: ProgressBarProps) {
+export function ProgressBar({ currentStep, totalSteps = 6, className, onStepClick }: ProgressBarProps) {
   const pct = ((currentStep - 1) / (totalSteps - 1)) * 100;
 
   return (
@@ -39,6 +40,7 @@ export function ProgressBar({ currentStep, totalSteps = 6, className }: Progress
               key={n}
               className="flex flex-1 flex-col items-center gap-2 min-w-0"
               aria-hidden
+              onClick={() => onStepClick(n)} // Add click handler to navigate to the step
             >
               <div
                 className={cn(

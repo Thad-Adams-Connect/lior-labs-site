@@ -696,5 +696,47 @@ export function StepRenderer({ step, form, setForm }: StepRendererProps) {
     );
   }
 
+  if (step === 7) {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-xl font-semibold text-white">Review Your Answers</h2>
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-medium text-gray-400">Project Type</h3>
+            <p className="text-white">{form.projectType || "Not provided"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-400">Business Description</h3>
+            <p className="text-white">{form.businessDescription || "Not provided"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-400">Main Goal</h3>
+            <p className="text-white">{form.mainGoal || "Not provided"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-400">Priorities</h3>
+            <p className="text-white">{form.priorities.length > 0 ? form.priorities.join(", ") : "Not provided"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-400">Contact Name</h3>
+            <p className="text-white">{form.contactName || "Not provided"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-400">Contact Email</h3>
+            <p className="text-white">{form.contactEmail || "Not provided"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-400">Business Name</h3>
+            <p className="text-white">{form.businessName || "Not provided"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-400">Notes</h3>
+            <p className="text-white">{form.notes || "Not provided"}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return null;
 }

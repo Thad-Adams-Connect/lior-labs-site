@@ -10,7 +10,7 @@ import { initialQuoteFormState, type QuoteFormState } from "./types";
 import { buildQuotePayload } from "./quote-payload";
 import { validateStep } from "./validation";
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 7; // Updated total steps to include the review step
 
 const stepMotion = {
   initial: (dir: number) => ({
@@ -89,6 +89,8 @@ export function QuoteForm() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
+      if (step !== TOTAL_STEPS) return; // Ensure submission only happens on the last step
+
       const msg = validateStep(6, form);
       if (msg) {
         setError(msg);
@@ -133,7 +135,7 @@ export function QuoteForm() {
         setIsSubmitting(false);
       }
     },
-    [form],
+    [form, step],
   );
 
   const startOver = useCallback(() => {
@@ -178,7 +180,14 @@ export function QuoteForm() {
       onSubmit={step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()}
       className="space-y-10"
     >
-      <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
+      <ProgressBar
+        currentStep={step}
+        totalSteps={TOTAL_STEPS}
+        onStepClick={(newStep) => {
+          setDirection(newStep > step ? 1 : -1); // Determine direction
+          setStep(newStep); // Update the step
+        }}
+      />
 
       <div className="relative min-h-[320px] md:min-h-[380px]">
         <AnimatePresence mode="wait" custom={direction}>
@@ -227,7 +236,7 @@ export function QuoteForm() {
 
         {step < TOTAL_STEPS ? (
           <Button type="button" variant="primary" onClick={goNext} className="px-8 py-4 rounded-full text-[15px]">
-            Continue
+            {step === TOTAL_STEPS - 1 ? "Review" : "Continue"}
             <ArrowRight className="h-4 w-4" />
           </Button>
         ) : (
@@ -237,7 +246,7 @@ export function QuoteForm() {
             className="px-8 py-4 rounded-full text-[15px]"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Submitting..." : "Review & Generate Proposal"}
+            {isSubmitting ? "Submitting..." : "Submit Proposal"}
             <Sparkles className="h-4 w-4" />
           </Button>
         )}
